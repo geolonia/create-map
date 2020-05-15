@@ -69,6 +69,7 @@ const main = async () => {
   ${chalk.cyan(starter.value)}`
           : "";
 
+        const refference = `For more information, please refer official document at ${templateSummary.url}.`;
         process.stdout.write(`Success! Created hoge at ${path}
 
 Inside that directory, you can run a command:
@@ -76,6 +77,8 @@ Inside that directory, you can run a command:
 ${commandList}
 
 ${suggestion}
+
+${refference}
 
 Enjoy Geolonia Map!\n`);
         process.exit(0);

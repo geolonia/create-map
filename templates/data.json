@@ -6,6 +6,7 @@
         "description": "Starts a preview server.",
         "isStarter": true
       }
-    ]
+    ],
+    "url": "https://docs.geolonia.com/embed-api/"
   }
 }
