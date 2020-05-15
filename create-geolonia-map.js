@@ -24,10 +24,10 @@ const listTemplateFiles = async (dir, templateFiles = []) => {
 /**
  *
  * @param {string} dir
- * @param {string} name
+ * @param {string} mapName
  * @return {string}
  */
-const createGeoloniaMap = async (dir, name, options) => {
+const createGeoloniaMap = async (dir, mapName, options) => {
   const templateDir = `${await pkgDir(__dirname)}/templates/${
     options.template
   }`;
@@ -42,14 +42,14 @@ const createGeoloniaMap = async (dir, name, options) => {
   if (!templateExists) {
     throw new Error(`${options.template} is not valid Geolonia template name.`);
   }
-  const destDir = path.resolve(dir, name);
+  const destDir = path.resolve(dir, mapName);
   const templateFiles = await listTemplateFiles(templateDir);
 
   for (const { dir, name } of templateFiles) {
     const relativePart = path.relative(templateDir, dir);
     await fs.mkdir(`${destDir}/${relativePart}`, { recursive: true });
 
-    ejs.renderFile(`${dir}/${name}`, { name }, (err, str) => {
+    ejs.renderFile(`${dir}/${name}`, { mapName }, (err, str) => {
       if (err) {
         throw err;
       } else {
