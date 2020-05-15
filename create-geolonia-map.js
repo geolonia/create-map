@@ -28,7 +28,9 @@ const listTemplateFiles = async (dir, templateFiles = []) => {
  * @return {string}
  */
 const createGeoloniaMap = async (dir, name, options) => {
-  const templateDir = `${await pkgDir()}/templates/${options.template}`;
+  const templateDir = `${await pkgDir(__dirname)}/templates/${
+    options.template
+  }`;
   if (!options.template) {
     throw new Error(`${options.template} is not valid Geolonia template name.`);
   }
