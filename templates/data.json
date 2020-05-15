@@ -1,0 +1,11 @@
+{
+  "basic": {
+    "commands": [
+      {
+        "value": "npm start",
+        "description": "Starts a preview server.",
+        "isStarter": true
+      }
+    ]
+  }
+}
