@@ -4,6 +4,8 @@ const createGeoloniaMap = require("./create-geolonia-map");
 const child_process = require("child_process");
 const chalk = require("chalk");
 const templateSummary = require("./templates/data.json");
+const fs = require("fs");
+const path = require("path");
 
 const cli = meow(
   `Usage
@@ -27,6 +29,20 @@ const main = async () => {
   const [name] = cli.input;
   const options = cli.flags;
 
+  if (!name) {
+    process.stderr.write("Please specify your map name.\n");
+    process.exit(3);
+  }
+
+  const mapDirPath = path.resolve(process.cwd(), name);
+  try {
+    fs.opendirSync(mapDirPath);
+    process.stderr.write(`${mapDirPath} already exists.`);
+    process.exit(4);
+  } catch (error) {
+    // nothing to do
+  }
+
   if (options.h || options.help) {
     cli.showHelp();
   } else if (options.v || options.version) {
@@ -34,9 +50,7 @@ const main = async () => {
   } else {
     process.stdout.write("@geolonia/create-map is curerntly experimental.\n\n");
     process.stdout.write(
-      `Creating a new Geolonia Map in ${chalk.green(
-        process.cwd() + "/" + name
-      )}.\n\n`
+      `Creating a new Geolonia Map in ${chalk.green(mapDirPath)}.\n\n`
     );
 
     let path;
@@ -80,7 +94,7 @@ ${suggestion}
 
 ${refference}
 
-Enjoy Geolonia Map!\n`);
+Enjoy Geolonia Map!\n\n`);
         process.exit(0);
       }
     });
